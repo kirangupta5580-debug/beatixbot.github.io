@@ -333,9 +333,20 @@ Loading Beatix...
 <script>
 
 /* loader */
-window.onload=()=>setTimeout(()=>loader.style.display="none",900);
+<script>
+window.onload = () => {
+  const loader = document.getElementById("loader");
+  if(!loader) return;
 
-/* year */
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.pointerEvents = "none";
+    setTimeout(()=> loader.remove(), 400);
+  }, 800);
+};
+</script>
+  
+  /* year */
 document.getElementById("year").textContent=new Date().getFullYear();
 
 /* cursor */
