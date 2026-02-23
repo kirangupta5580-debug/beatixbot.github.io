@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beatix Bot • Discord Music Bot</title>
-
 <style>
-
 /* LOADER */
 #loader{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:#070b14;
 display:flex;
 align-items:center;
@@ -31,16 +28,6 @@ margin-bottom:20px;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* PARTICLES */
-#particles{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-}
-
 /* BASE */
 body{
 margin:0;
@@ -51,12 +38,9 @@ overflow-x:hidden;
 scroll-behavior:smooth;
 transition:.4s;
 }
-body.light{
-background:#f4f7ff;
-color:#111;
-}
+body.light{background:#f4f7ff;color:#111}
 
-/* animated bg */
+/* animated gradient bg */
 body::before{
 content:"";
 position:fixed;
@@ -82,27 +66,15 @@ box-shadow:0 0 10px #00eaff;
 
 /* NAV */
 nav{
-position:sticky;
-top:0;
+position:sticky;top:0;
 background:#0008;
 backdrop-filter:blur(12px);
 z-index:999;
 }
 nav ul{
-display:flex;
-gap:40px;
-justify-content:center;
-padding:18px;
-margin:0;
-list-style:none;
-flex-wrap:wrap;
+display:flex;gap:40px;justify-content:center;padding:18px;margin:0;list-style:none;flex-wrap:wrap;
 }
-nav a{
-color:#fff;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
+nav a{color:#fff;text-decoration:none;font-weight:600;transition:.3s}
 nav a:hover{color:#00eaff}
 
 /* HERO */
@@ -110,104 +82,53 @@ nav a:hover{color:#00eaff}
 .hero h1{
 font-size:3rem;
 background:linear-gradient(90deg,#00eaff,#6a8cff);
--webkit-background-clip:text;
-color:transparent;
-margin:0;
+-webkit-background-clip:text;color:transparent;margin:0;
 animation:float 4s ease-in-out infinite;
 }
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-15px)}
-}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 
 /* visualizer */
 .visualizer{
-display:flex;
-justify-content:center;
-gap:6px;
-margin-top:35px;
+display:flex;justify-content:center;gap:6px;margin-top:35px;
 }
 .bar{
-width:6px;
-height:40px;
-background:#00eaff;
-border-radius:5px;
+width:6px;height:40px;background:#00eaff;border-radius:5px;
 animation:beat 1s infinite ease-in-out;
 }
 .bar:nth-child(2){animation-delay:.15s}
 .bar:nth-child(3){animation-delay:.3s}
 .bar:nth-child(4){animation-delay:.45s}
 .bar:nth-child(5){animation-delay:.6s}
-@keyframes beat{
-0%,100%{height:20px}
-50%{height:70px}
-}
+@keyframes beat{0%,100%{height:20px}50%{height:70px}}
 
 /* button */
 .btn{
-display:inline-block;
-margin-top:25px;
-padding:14px 36px;
-border-radius:30px;
-background:linear-gradient(90deg,#00eaff,#6a8cff);
-color:#000;
-font-weight:700;
-text-decoration:none;
-transition:.3s;
+display:inline-block;margin-top:25px;padding:14px 36px;
+border-radius:30px;background:linear-gradient(90deg,#00eaff,#6a8cff);
+color:#000;font-weight:700;text-decoration:none;transition:.3s;
 }
-.btn:hover{
-transform:scale(1.07);
-box-shadow:0 0 25px #00eaff88;
-}
+.btn:hover{transform:scale(1.07);box-shadow:0 0 25px #00eaff88;}
 
 /* CARDS */
 .cards{
-display:flex;
-flex-wrap:wrap;
-gap:25px;
-justify-content:center;
-padding:80px 20px;
+display:flex;flex-wrap:wrap;gap:25px;justify-content:center;padding:80px 20px;
 }
 .card{
-width:230px;
-padding:25px;
-border-radius:18px;
-background:#ffffff08;
-border:1px solid #ffffff15;
-background:#0f1629;
-transition:.2s;
-transform-style:preserve-3d;
+width:230px;padding:25px;border-radius:18px;
+background:#0f1629;border:1px solid #ffffff15;
+backdrop-filter:blur(10px);
+transition:.2s;transform-style:preserve-3d;
 }
-.card:hover{
-box-shadow:0 0 25px #00eaff55;
-}
+.card:hover{box-shadow:0 0 25px #00eaff55}
 
 /* STATS */
 .stats{text-align:center;padding:70px 20px}
-.statbox{
-display:inline-block;
-margin:10px;
-padding:20px 30px;
-background:#ffffff08;
-border-radius:15px;
-}
+.statbox{display:inline-block;margin:10px;padding:20px 30px;background:#ffffff08;border-radius:15px}
 
 /* COMMAND SEARCH */
 .search{text-align:center;margin-top:20px}
-.search input{
-padding:12px;
-width:260px;
-border-radius:10px;
-border:none;
-outline:none;
-}
-.cmd{
-background:#111a2e;
-margin:12px auto;
-padding:14px;
-width:260px;
-border-radius:8px;
-}
+.search input{padding:12px;width:260px;border-radius:10px;border:none;outline:none}
+.cmd{background:#111a2e;margin:12px auto;padding:14px;width:260px;border-radius:8px}
 
 /* FOOTER */
 footer{text-align:center;margin-top:60px}
@@ -217,39 +138,20 @@ background:url("https://svgshare.com/i/15pA.svg") repeat-x;
 background-size:1000px 60px;
 animation:waveMove 20s linear infinite;
 }
-@keyframes waveMove{
-0%{background-position-x:0}
-100%{background-position-x:1000px}
-}
-footer p{
-margin:0;
-padding:25px;
-background:#020b12;
-color:#9edfff;
-}
+@keyframes waveMove{0%{background-position-x:0}100%{background-position-x:1000px}}
+footer p{margin:0;padding:25px;background:#020b12;color:#9edfff}
 
 /* toggle */
 .toggle{
-position:fixed;
-right:20px;
-bottom:20px;
-background:#00eaff;
-color:#000;
-padding:12px 16px;
-border-radius:50px;
-cursor:pointer;
-font-weight:bold;
+position:fixed;right:20px;bottom:20px;
+background:#00eaff;color:#000;padding:12px 16px;border-radius:50px;cursor:pointer;font-weight:bold;
 }
 
 /* cursor glow */
 .cursor{
-width:20px;height:20px;
-background:#00eaff;
-position:fixed;
-border-radius:50%;
-pointer-events:none;
-filter:blur(8px);
-z-index:9999;
+width:20px;height:20px;background:#00eaff;
+position:fixed;border-radius:50%;
+pointer-events:none;filter:blur(8px);z-index:9999;
 }
 
 /* mobile */
@@ -257,10 +159,8 @@ z-index:9999;
 .hero h1{font-size:2.2rem}
 .card{width:90%}
 }
-
 </style>
 </head>
-
 <body>
 
 <div id="loader">
@@ -282,7 +182,6 @@ Loading Beatix...
 
 <section class="hero">
 <h1>Beatix Music Bot 🎧</h1>
-
 <div class="visualizer">
 <div class="bar"></div>
 <div class="bar"></div>
@@ -290,7 +189,6 @@ Loading Beatix...
 <div class="bar"></div>
 <div class="bar"></div>
 </div>
-
 <a href="#" class="btn">Add to Discord</a>
 </section>
 
@@ -310,11 +208,9 @@ Loading Beatix...
 
 <section id="commands">
 <h2 style="text-align:center">Commands</h2>
-
 <div class="search">
 <input id="search" placeholder="Search command...">
 </div>
-
 <div id="cmds">
 <div class="cmd">/play</div>
 <div class="cmd">/skip</div>
@@ -331,41 +227,27 @@ Loading Beatix...
 <div class="toggle" onclick="toggleTheme()">Theme</div>
 
 <script>
-
-/* loader */
-<script>
-window.onload = () => {
-  const loader = document.getElementById("loader");
-  if(!loader) return;
-
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    loader.style.pointerEvents = "none";
-    setTimeout(()=> loader.remove(), 400);
-  }, 800);
-};
-</script>
-  
-  /* year */
-document.getElementById("year").textContent=new Date().getFullYear();
-
-/* cursor */
-<script>
-const c=document.getElementById("cursor");
-
-let x=0,y=0;
-document.addEventListener("mousemove",e=>{
-x=e.clientX;
-y=e.clientY;
+/* ----- Loader ----- */
+window.addEventListener("load",()=>{
+  const loader=document.getElementById("loader");
+  if(loader){
+    loader.style.opacity="0";
+    loader.style.pointerEvents="none";
+    setTimeout(()=>loader.remove(),400);
+  }
 });
 
-setInterval(()=>{
-c.style.left=x+"px";
-c.style.top=y+"px";
-},16);
-</script>
+/* ----- Year ----- */
+document.getElementById("year").textContent=new Date().getFullYear();
 
-/* tilt cards */
+/* ----- Cursor Glow ----- */
+const c=document.getElementById("cursor");
+document.addEventListener("mousemove",e=>{
+c.style.left=e.clientX+"px";
+c.style.top=e.clientY+"px";
+});
+
+/* ----- Tilt Cards ----- */
 document.querySelectorAll(".card").forEach(card=>{
 card.addEventListener("mousemove",e=>{
 let r=card.getBoundingClientRect();
@@ -373,34 +255,32 @@ let x=e.clientX-r.left;
 let y=e.clientY-r.top;
 card.style.transform=`rotateX(${-(y-r.height/2)/18}deg) rotateY(${(x-r.width/2)/18}deg)`;
 });
-card.onmouseleave=()=>card.style.transform="rotateX(0) rotateY(0)";
+card.addEventListener("mouseleave",()=>card.style.transform="rotateX(0) rotateY(0)");
 });
 
-/* search */
-search.oninput=()=>{
+/* ----- Command Search ----- */
+const search=document.getElementById("search");
+search.addEventListener("input",()=>{
 document.querySelectorAll(".cmd").forEach(c=>{
 c.style.display=c.textContent.includes(search.value)? "block":"none";
 });
-};
+});
 
-/* theme toggle */
-function toggleTheme(){
-document.body.classList.toggle("light");
-}
+/* ----- Theme Toggle ----- */
+function toggleTheme(){document.body.classList.toggle("light");}
 
-/* fake API (replace later) */
+/* ----- Fake API Stats ----- */
 setTimeout(()=>{
-servers.textContent="128";
-ping.textContent="42ms";
-status.textContent="Online";
+document.getElementById("servers").textContent="128";
+document.getElementById("ping").textContent="42ms";
+document.getElementById("status").textContent="Online";
 },1200);
 
-/* particles */
+/* ----- Particles ----- */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth;
 canvas.height=innerHeight;
-
 let particles=[];
 for(let i=0;i<25;i++){
 particles.push({
@@ -411,7 +291,6 @@ dx:(Math.random()-.5)*0.15,
 dy:(Math.random()-.5)*0.15
 });
 }
-
 function draw(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 particles.forEach(p=>{
@@ -427,7 +306,6 @@ if(p.y<0||p.y>canvas.height)p.dy*=-1;
 requestAnimationFrame(draw);
 }
 draw();
-
 </script>
 </body>
 </html>
