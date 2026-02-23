@@ -35,9 +35,8 @@ background:#0b0f17;
 color:#eaf6ff;
 overflow-x:hidden;
 scroll-behavior:smooth;
-transition:.4s;
+transition: background 0.4s, color 0.4s;
 }
-body.light{background:#f4f7ff;color:#111}
 
 /* animated background */
 body::before{
@@ -47,6 +46,7 @@ width:200%; height:200%;
 background:linear-gradient(45deg,#08121f,#0f2027,#1b2c44,#0f2027);
 animation:bg 160s linear infinite;
 z-index:-3;
+transition: opacity 0.4s;
 }
 @keyframes bg{0%{transform:translate(0,0)}50%{transform:translate(-25%,-25%)}100%{transform:translate(0,0)}}
 
@@ -61,6 +61,7 @@ nav{
 position:sticky; top:0;
 background:#0008; backdrop-filter:blur(12px);
 z-index:999;
+transition: 0.4s;
 }
 nav ul{
 display:flex; gap:40px; justify-content:center;
@@ -109,7 +110,6 @@ transition:.3s;
 }
 .btn:hover{transform:scale(1.07); box-shadow:0 0 25px #00eaff88}
 
-/* secondary button for community */
 .btn-outline {
 background: transparent;
 color: #00eaff;
@@ -130,7 +130,7 @@ display:flex; flex-wrap:wrap; gap:25px; justify-content:center; padding:60px 20p
 width:230px; padding:25px; border-radius:18px;
 background:#0f1629; border:1px solid #ffffff15;
 backdrop-filter:blur(10px);
-transition:.2s; transform-style:preserve-3d;
+transition:.2s background, .2s border, .2s color; transform-style:preserve-3d;
 }
 .card:hover{box-shadow:0 0 25px #00eaff55}
 
@@ -139,6 +139,7 @@ transition:.2s; transform-style:preserve-3d;
 .statbox{
 display:inline-block; margin:10px; padding:20px 30px;
 background:#ffffff08; border-radius:15px;
+transition: .4s;
 }
 
 /* ========== COMMAND SEARCH ========== */
@@ -146,18 +147,34 @@ background:#ffffff08; border-radius:15px;
 .search input{
 padding:12px; width:260px; border-radius:10px;
 border:none; outline:none;
+background: #fff; color: #000;
 }
 .cmd{
 background:#111a2e; margin:12px auto;
 padding:14px; width:260px; border-radius:8px;
+transition: .4s;
 }
+
+/* ========== TEAM ========== */
+.team { text-align: center; padding: 70px 20px; }
+.team-container {
+display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px;
+}
+.team-member {
+background: #0f1629; padding: 25px 45px; border-radius: 18px;
+border: 1px solid #ffffff15; backdrop-filter: blur(10px);
+transition: .4s;
+}
+.team-member h3 { margin: 0 0 5px 0; color: #00eaff; font-size: 1.4rem;}
+.team-member p { margin: 0; color: #a9c2e3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;}
+.team-member:hover { box-shadow: 0 0 20px #00eaff44; }
 
 /* ========== COMMUNITY ========== */
 .community {
 text-align:center; padding:70px 20px;
 }
 .community p {
-max-width: 500px; margin: 20px auto; color: #a9c2e3; line-height: 1.6;
+max-width: 500px; margin: 20px auto; color: #a9c2e3; line-height: 1.6; transition: .4s;
 }
 
 /* ========== FOOTER WAVE ========== */
@@ -169,7 +186,7 @@ background-size:1000px 60px;
 animation:waveMove 20s linear infinite;
 }
 @keyframes waveMove{0%{background-position-x:0}100%{background-position-x:1000px}}
-footer p{margin:0;padding:25px;background:#020b12;color:#9edfff}
+footer p{margin:0;padding:25px;background:#020b12;color:#9edfff; transition: .4s;}
 
 /* ========== TOGGLE & CURSOR ========== */
 .toggle{
@@ -177,7 +194,12 @@ position:fixed; right:20px; bottom:20px;
 background:#00eaff; color:#000;
 padding:12px 16px; border-radius:50px;
 cursor:pointer; font-weight:bold;
+user-select: none; z-index: 1000;
+box-shadow: 0 4px 15px #00eaff66;
+transition: .3s;
 }
+.toggle:hover { transform: scale(1.05); }
+
 .cursor{
 width:20px; height:20px; background:#00eaff;
 position:fixed; border-radius:50%;
@@ -186,6 +208,24 @@ pointer-events:none; filter:blur(8px); z-index:9999;
 
 /* ========== PARTICLES ========== */
 #particles{position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;}
+
+/* =========================================
+   LIGHT MODE OVERRIDES
+========================================= */
+body.light-mode { background: #f0f4f8; color: #1a202c; }
+body.light-mode::before { opacity: 0.1; } /* Dim the background animation to make it subtle */
+body.light-mode nav { background: rgba(255, 255, 255, 0.85); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+body.light-mode nav a { color: #2d3748; }
+body.light-mode nav a:hover { color: #0077ff; }
+body.light-mode .hero h1 { background: linear-gradient(90deg, #0077ff, #00eaff); -webkit-background-clip: text; }
+body.light-mode .card, body.light-mode .team-member { background: #ffffff; border: 1px solid #e2e8f0; color: #1a202c; }
+body.light-mode .card:hover, body.light-mode .team-member:hover { box-shadow: 0 0 20px rgba(0, 119, 255, 0.2); }
+body.light-mode .statbox, body.light-mode .cmd { background: #ffffff; color: #1a202c; border: 1px solid #e2e8f0; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+body.light-mode .community p { color: #4a5568; }
+body.light-mode .team-member p { color: #718096; }
+body.light-mode .team-member h3 { color: #0077ff; }
+body.light-mode footer p { background: #e2e8f0; color: #2d3748; }
+body.light-mode .search input { background: #ffffff; border: 1px solid #cbd5e0; }
 
 /* ========== MOBILE ========== */
 @media(max-width:700px){
@@ -211,6 +251,7 @@ Loading Beatix...
 <li><a href="#features">Features</a></li>
 <li><a href="#stats">Status</a></li>
 <li><a href="#commands">Commands</a></li>
+<li><a href="#team">Team</a></li>
 <li><a href="#community">Community</a></li>
 </ul>
 </nav>
@@ -252,6 +293,20 @@ Loading Beatix...
 </div>
 </section>
 
+<section id="team" class="team">
+<h2>Meet the Team</h2>
+<div class="team-container">
+    <div class="team-member">
+        <h3>darksky & guild</h3>
+        <p>Owners</p>
+    </div>
+    <div class="team-member">
+        <h3>td._.abhi</h3>
+        <p>Co-Owner</p>
+    </div>
+</div>
+</section>
+
 <section id="community" class="community">
 <h2>Join the Community</h2>
 <p>Need help setting up Beatix, want to report a bug, or just want to hang out? Join our official Discord support server!</p>
@@ -263,7 +318,7 @@ Loading Beatix...
 <p>© <span id="year"></span> Beatix Music Bot</p>
 </footer>
 
-<div class="toggle" onclick="toggleTheme()">Theme</div>
+<div class="toggle" id="themeToggle">Theme: Auto</div>
 
 <script>
 /* LOADER */
@@ -288,7 +343,7 @@ cursor.style.top=e.clientY+"px";
 });
 
 /* 3D TILT CARDS */
-document.querySelectorAll(".card").forEach(card=>{
+document.querySelectorAll(".card, .team-member").forEach(card=>{
 card.addEventListener("mousemove",e=>{
 let r=card.getBoundingClientRect();
 let x=e.clientX-r.left;
@@ -304,8 +359,36 @@ searchInput.oninput=()=>{document.querySelectorAll(".cmd").forEach(c=>{
 c.style.display=c.textContent.toLowerCase().includes(searchInput.value.toLowerCase())?"block":"none";
 });};
 
-/* THEME TOGGLE */
-function toggleTheme(){document.body.classList.toggle("light");}
+/* THEME TOGGLE LOGIC */
+const themeToggleBtn = document.getElementById("themeToggle");
+const themeStates = ["Auto", "Light", "Dark"];
+let currentTheme = localStorage.getItem("beatixTheme") || "Auto";
+
+function applyTheme() {
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  
+  if (currentTheme === "Light" || (currentTheme === "Auto" && prefersLight)) {
+    document.body.classList.add("light-mode");
+  } else {
+    document.body.classList.remove("light-mode");
+  }
+  
+  themeToggleBtn.textContent = "Theme: " + currentTheme;
+}
+
+// Click to cycle themes
+themeToggleBtn.addEventListener("click", () => {
+  let idx = themeStates.indexOf(currentTheme);
+  currentTheme = themeStates[(idx + 1) % themeStates.length];
+  localStorage.setItem("beatixTheme", currentTheme);
+  applyTheme();
+});
+
+// Listen for OS level theme changes
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", applyTheme);
+
+// Initial call to set theme on load
+applyTheme();
 
 /* MOCK BOT STATS */
 setTimeout(()=>{
