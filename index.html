@@ -63,7 +63,7 @@ position:fixed;
 width:200%;
 height:200%;
 background:linear-gradient(45deg,#08121f,#0f2027,#1b2c44,#0f2027);
-animation:bg 60s linear infinite;
+animation:bg 160s linear infinite;
 z-index:-3;
 }
 @keyframes bg{
@@ -174,7 +174,7 @@ padding:25px;
 border-radius:18px;
 background:#ffffff08;
 border:1px solid #ffffff15;
-backdrop-filter:blur(10px);
+background:#0f1629;
 transition:.2s;
 transform-style:preserve-3d;
 }
@@ -339,11 +339,20 @@ window.onload=()=>setTimeout(()=>loader.style.display="none",900);
 document.getElementById("year").textContent=new Date().getFullYear();
 
 /* cursor */
+<script>
 const c=document.getElementById("cursor");
+
+let x=0,y=0;
 document.addEventListener("mousemove",e=>{
-c.style.left=e.clientX+"px";
-c.style.top=e.clientY+"px";
+x=e.clientX;
+y=e.clientY;
 });
+
+setInterval(()=>{
+c.style.left=x+"px";
+c.style.top=y+"px";
+},16);
+</script>
 
 /* tilt cards */
 document.querySelectorAll(".card").forEach(card=>{
@@ -382,13 +391,13 @@ canvas.width=innerWidth;
 canvas.height=innerHeight;
 
 let particles=[];
-for(let i=0;i<60;i++){
+for(let i=0;i<25;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*2+1,
-dx:(Math.random()-.5)*0.4,
-dy:(Math.random()-.5)*0.4
+dx:(Math.random()-.5)*0.15,
+dy:(Math.random()-.5)*0.15
 });
 }
 
