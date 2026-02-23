@@ -1,12 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<canvas id="particles"></canvas>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beatix Bot • Discord Music Bot</title>
 
+<canvas id="particles"></canvas>
+
 <style>
+
+/* ================= BASE ================= */
+body{
+margin:0;
+font-family:Segoe UI,Arial,sans-serif;
+background:linear-gradient(160deg,#071018,#0a1c25,#071018);
+color:#e6faff;
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(10px);
+padding:16px;
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+nav ul{
+display:flex;
+justify-content:center;
+gap:45px;
+list-style:none;
+margin:0;
+padding:0;
+}
+
+nav a{
+color:#e6faff;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+letter-spacing:.5px;
+}
+
+nav a:hover,
+nav a.active{
+color:#00e0ff;
+border-bottom:2px solid #00e0ff;
+padding-bottom:4px;
+}
+
+/* ================= HERO ================= */
+.hero{
+position:relative;
+overflow:hidden;
+text-align:center;
+padding:140px 20px;
+color:white;
+background:linear-gradient(-45deg,#004e92,#000428,#001d3d,#003566);
+background-size:400% 400%;
+animation:gradientFlow 14s ease infinite;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center,rgba(0,255,255,.15),transparent 70%);
+animation:pulseGlow 6s ease-in-out infinite;
+}
+
+.hero h1{
+font-size:3.2em;
+margin:0;
+position:relative;
+z-index:2;
+text-shadow:0 0 20px rgba(0,255,255,.4);
+}
+
+.hero p{
+font-size:1.25em;
+margin:18px auto 28px;
+max-width:700px;
+position:relative;
+z-index:2;
+color:#bdefff;
+}
+
+.btn{
+display:inline-block;
+padding:16px 40px;
+background:linear-gradient(45deg,#00e0ff,#0077ff);
+color:white;
+text-decoration:none;
+border-radius:12px;
+font-weight:bold;
+transition:.35s;
+position:relative;
+z-index:2;
+box-shadow:0 0 20px rgba(0,200,255,.4);
+}
+
+.btn:hover{
+transform:scale(1.07);
+box-shadow:0 0 30px rgba(0,200,255,.9);
+}
+
+/* ================= SECTIONS ================= */
+section{
+padding:90px 20px;
+text-align:center;
+}
+
+h2{
+margin-bottom:30px;
+font-size:2em;
+color:#7fe9ff;
+}
+
+/* ================= CARDS ================= */
+.cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:28px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+padding:28px;
+border-radius:18px;
+width:230px;
+transition:.35s;
+border:1px solid rgba(0,255,255,0.15);
+box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+
+.card:hover{
+transform:translateY(-14px) scale(1.05);
+box-shadow:
+0 0 25px rgba(0,255,255,.5),
+0 0 60px rgba(0,150,255,.3);
+}
+
+/* ================= COMMAND LIST ================= */
+.cmd-list{
+list-style:none;
+padding:0;
+}
+
+.cmd-list li{
+background:rgba(0,0,0,0.5);
+color:#c8f6ff;
+margin:12px auto;
+padding:15px;
+width:290px;
+border-radius:10px;
+border:1px solid rgba(0,255,255,0.2);
+transition:.3s;
+}
+
+.cmd-list li:hover{
+transform:scale(1.05);
+background:rgba(0,255,255,0.15);
+}
+
+/* ================= STATUS PANEL ================= */
+.status-panel{
+display:inline-flex;
+align-items:center;
+gap:14px;
+padding:22px 40px;
+border-radius:60px;
+background:rgba(255,255,255,0.06);
+font-size:1.2em;
+backdrop-filter:blur(15px);
+border:1px solid rgba(0,255,255,0.2);
+box-shadow:0 0 25px rgba(0,255,255,.2);
+}
+
+.status-dot{
+width:15px;
+height:15px;
+border-radius:50%;
+background:#00ffa6;
+box-shadow:0 0 12px #00ffa6;
+animation:pulse 1.5s infinite;
+}
+
+/* ================= FOOTER ================= */
+footer{
+margin-top:60px;
+text-align:center;
+font-weight:600;
+letter-spacing:.6px;
+position:relative;
+overflow:hidden;
+background:#020b12;
+border-top:1px solid rgba(0,255,255,.15);
+}
+
+.wave{
+height:60px;
+background:url("https://svgshare.com/i/15pA.svg") repeat-x;
+background-size:1000px 60px;
+animation:waveMove 20s linear infinite;
+filter:brightness(.6) hue-rotate(180deg);
+}
+
+footer p{
+margin:0;
+padding:24px;
+color:#7fe9ff;
+}
+
+/* ================= PARTICLES CANVAS ================= */
 #particles{
 position:fixed;
 top:0;
@@ -16,231 +229,40 @@ height:100%;
 z-index:-1;
 }
 
-/* BASE */
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#dff6ff;
-color:#222;
-scroll-behavior:smooth;
-}
-
-/* NAVBAR */
-nav{
-background:#002b36;
-padding:15px;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-nav ul{
-display:flex;
-justify-content:center;
-gap:40px;
-list-style:none;
-margin:0;
-padding:0;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-font-weight:bold;
-transition:.3s;
-}
-
-nav a:hover,
-nav a.active{
-color:#ff7b00;
-border-bottom:2px solid #ff7b00;
-padding-bottom:3px;
-}
-
-/* HERO */
-.hero{
-position:relative;
-overflow:hidden;
-text-align:center;
-padding:120px 20px;
-color:white;
-background:linear-gradient(-45deg,#00b4db,#0083b0,#0072ff,#00c6ff);
-background-size:400% 400%;
-animation:gradientFlow 12s ease infinite;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-width:200%;
-height:200%;
-top:-50%;
-left:-50%;
-background:radial-gradient(circle,rgba(255,255,255,0.2),transparent 70%);
-animation:rotateGlow 20s linear infinite;
-}
-
-.hero h1{
-font-size:3em;
-margin:0;
-position:relative;
-z-index:1;
-}
-
-.hero p{
-font-size:1.2em;
-margin:15px auto 25px;
-max-width:700px;
-position:relative;
-z-index:1;
-}
-
-.btn{
-display:inline-block;
-padding:15px 35px;
-background:#ff7b00;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-transition:.3s;
-position:relative;
-z-index:1;
-}
-
-.btn:hover{
-background:#cc6200;
-transform:scale(1.05);
-}
-
-/* SECTIONS */
-section{
-padding:70px 20px;
-text-align:center;
-}
-
-h2{
-margin-bottom:25px;
-}
-
-/* CARDS */
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
-}
-
-.card{
-background:rgba(255,255,255,0.7);
-backdrop-filter:blur(10px);
-padding:25px;
-border-radius:15px;
-width:220px;
-transition:.35s;
-border:1px solid rgba(255,255,255,0.3);
-}
-
-.card:hover{
-transform:translateY(-12px) scale(1.05);
-box-shadow:
-0 0 20px rgba(0,180,219,0.6),
-0 0 40px rgba(0,131,176,0.4);
-}
-
-/* COMMAND LIST */
-.cmd-list{
-list-style:none;
-padding:0;
-}
-
-.cmd-list li{
-background:#003d4d;
-color:white;
-margin:10px auto;
-padding:14px;
-width:270px;
-border-radius:7px;
-}
-
-/* STATUS PANEL */
-.status-panel{
-display:inline-flex;
-align-items:center;
-gap:12px;
-padding:20px 35px;
-border-radius:50px;
-background:white;
-font-size:1.2em;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-.status-dot{
-width:14px;
-height:14px;
+/* ================= CURSOR GLOW ================= */
+.cursor-glow{
+position:fixed;
+width:22px;
+height:22px;
 border-radius:50%;
-background:#00ff88;
-box-shadow:0 0 10px #00ff88;
-animation:pulse 1.5s infinite;
+background:rgba(0,255,255,.7);
+pointer-events:none;
+transform:translate(-50%,-50%);
+filter:blur(10px);
+z-index:9999;
 }
 
-/* FOOTER */
-footer{
-background:white;
-margin-top:60px;
-text-align:center;
-font-weight:600;
-letter-spacing:.5px;
-position:relative;
-overflow:hidden;
-}
-
-.wave{
-height:60px;
-background:url("https://svgshare.com/i/15pA.svg") repeat-x;
-background-size:1000px 60px;
-animation:waveMove 20s linear infinite;
-}
-
-footer p{
-margin:0;
-padding:20px;
-}
-
-/* ANIMATIONS */
+/* ================= ANIMATIONS ================= */
 @keyframes gradientFlow{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
 }
 
-@keyframes rotateGlow{
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
-}
-
 @keyframes pulse{
 0%{transform:scale(1)}
-50%{transform:scale(1.4)}
+50%{transform:scale(1.5)}
 100%{transform:scale(1)}
+}
+
+@keyframes pulseGlow{
+0%,100%{opacity:.4}
+50%{opacity:.8}
 }
 
 @keyframes waveMove{
 0%{background-position-x:0}
 100%{background-position-x:1000px}
-}
-
-/* CURSOR GLOW */
-.cursor-glow{
-position:fixed;
-width:20px;
-height:20px;
-border-radius:50%;
-background:rgba(0,180,219,.6);
-pointer-events:none;
-transform:translate(-50%,-50%);
-filter:blur(8px);
-z-index:9999;
 }
 </style>
 </head>
@@ -295,7 +317,7 @@ z-index:9999;
 </ul>
 </section>
 
-<!-- WAVE FOOTER -->
+<!-- FOOTER -->
 <footer>
 <div class="wave"></div>
 <p>© <span id="year"></span> Beatix Music Bot</p>
@@ -333,13 +355,13 @@ canvas.width=innerWidth;
 canvas.height=innerHeight;
 
 let particles=[];
-for(let i=0;i<80;i++){
+for(let i=0;i<90;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*2+1,
-dx:(Math.random()-.5)*0.5,
-dy:(Math.random()-.5)*0.5
+dx:(Math.random()-.5)*0.4,
+dy:(Math.random()-.5)*0.4
 });
 }
 
@@ -348,7 +370,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 particles.forEach(p=>{
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="rgba(0,180,219,.7)";
+ctx.fillStyle="rgba(0,255,255,.6)";
 ctx.fill();
 p.x+=p.dx;
 p.y+=p.dy;
@@ -361,6 +383,7 @@ draw();
 </script>
 
 <div class="cursor-glow"></div>
+
 <script>
 const glow=document.querySelector(".cursor-glow");
 document.addEventListener("mousemove",e=>{
@@ -377,8 +400,8 @@ let x=e.clientX-rect.left;
 let y=e.clientY-rect.top;
 let centerX=rect.width/2;
 let centerY=rect.height/2;
-let rotateX=(y-centerY)/8;
-let rotateY=(centerX-x)/8;
+let rotateX=(y-centerY)/9;
+let rotateY=(centerX-x)/9;
 card.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 card.addEventListener("mouseleave",()=>{
