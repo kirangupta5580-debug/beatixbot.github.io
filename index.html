@@ -109,6 +109,19 @@ transition:.3s;
 }
 .btn:hover{transform:scale(1.07); box-shadow:0 0 25px #00eaff88}
 
+/* secondary button for community */
+.btn-outline {
+background: transparent;
+color: #00eaff;
+border: 2px solid #00eaff;
+box-shadow: 0 0 10px #00eaff33;
+}
+.btn-outline:hover {
+background: #00eaff;
+color: #000;
+box-shadow: 0 0 25px #00eaff88;
+}
+
 /* ========== CARDS ========== */
 .cards{
 display:flex; flex-wrap:wrap; gap:25px; justify-content:center; padding:60px 20px;
@@ -137,6 +150,14 @@ border:none; outline:none;
 .cmd{
 background:#111a2e; margin:12px auto;
 padding:14px; width:260px; border-radius:8px;
+}
+
+/* ========== COMMUNITY ========== */
+.community {
+text-align:center; padding:70px 20px;
+}
+.community p {
+max-width: 500px; margin: 20px auto; color: #a9c2e3; line-height: 1.6;
 }
 
 /* ========== FOOTER WAVE ========== */
@@ -190,6 +211,7 @@ Loading Beatix...
 <li><a href="#features">Features</a></li>
 <li><a href="#stats">Status</a></li>
 <li><a href="#commands">Commands</a></li>
+<li><a href="#community">Community</a></li>
 </ul>
 </nav>
 
@@ -202,7 +224,7 @@ Loading Beatix...
 <div class="bar"></div>
 <div class="bar"></div>
 </div>
-<a href="https://discord.gg/pH2De7D3" target="_blank" rel="noopener noreferrer" class="btn">Add to Discord</a>
+<a href="#" class="btn">Add to Discord</a>
 </section>
 
 <section id="features" class="cards">
@@ -228,6 +250,12 @@ Loading Beatix...
 <div class="cmd">/stop</div>
 <div class="cmd">/queue</div>
 </div>
+</section>
+
+<section id="community" class="community">
+<h2>Join the Community</h2>
+<p>Need help setting up Beatix, want to report a bug, or just want to hang out? Join our official Discord support server!</p>
+<a href="https://discord.gg/pH2De7D3" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Join Support Server</a>
 </section>
 
 <footer>
