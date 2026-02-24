@@ -18,6 +18,22 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="stylesheet" href="style.css">
+
+<style>
+  .faq-section { max-width: 800px; margin: 0 auto 60px; padding: 0 20px; }
+  .faq-section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
+  .faq-item { background: #1e293b; margin-bottom: 15px; border-radius: 12px; border: 1px solid #334155; overflow: hidden; transition: 0.3s; }
+  .faq-item:hover { border-color: #a855f7; box-shadow: 0 5px 15px rgba(168, 85, 247, 0.15); }
+  .faq-question { width: 100%; padding: 20px; text-align: left; background: none; border: none; color: #f8fafc; font-size: 1.1rem; font-family: 'Poppins', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: color 0.3s; }
+  .faq-question:hover { color: #a855f7; }
+  .faq-icon { transition: transform 0.4s ease; font-size: 1.5rem; color: #94a3b8; }
+  .faq-answer { max-height: 0; padding: 0 20px; color: #94a3b8; transition: max-height 0.4s ease, padding 0.4s ease; }
+  .faq-item.active .faq-answer { max-height: 200px; padding: 0 20px 20px; }
+  .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: #ec4899; }
+  body.light-mode .faq-item { background: #ffffff; border-color: #e2e8f0; }
+  body.light-mode .faq-question { color: #0f172a; }
+  body.light-mode .faq-answer { color: #64748b; }
+</style>
 </head>
 <body>
 
@@ -94,6 +110,24 @@
   </div>
 </section>
 
+<section class="faq-section" data-aos="fade-up" data-aos-duration="800">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-container">
+    <div class="faq-item">
+      <button class="faq-question">Why is there no audio playing? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Make sure Beatix is not muted, has permission to speak in your voice channel, and that the volume isn't set to 0!</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Does Beatix support Spotify and Apple Music? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Yes! Beatix can smoothly playback tracks and playlists from YouTube, Spotify, Soundcloud, and Apple Music.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Is Beatix totally free to use? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Absolutely. All of our core music features are 100% free with no hidden paywalls.</p></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wave"></div>
   <p>© <span id="year"></span> Beatix Music Bot</p>
@@ -104,6 +138,19 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
+// FAQ Accordion Logic
+document.querySelectorAll('.faq-question').forEach(button => {
+  button.addEventListener('click', () => {
+    const faqItem = button.parentElement;
+    // Close other open FAQs
+    document.querySelectorAll('.faq-item').forEach(item => {
+      if(item !== faqItem) item.classList.remove('active');
+    });
+    // Toggle current FAQ
+    faqItem.classList.toggle('active');
+  });
+});
+
 // Mobile Menu Toggle Logic
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.getElementById('nav-links');
