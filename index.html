@@ -38,8 +38,8 @@
   </div>
   
   <div class="hero-buttons">
-    <a href="#" class="btn btn-primary">Add to Discord</a>
-    <a href="commands.html" class="btn btn-secondary">View Commands</a>
+    <a href="#" class="btn">Add to Discord</a>
+    <a href="commands.html" class="btn btn-outline">View Commands</a>
   </div>
 </section>
 
@@ -158,7 +158,7 @@ const animateCounters = () => {
     const updateCount = () => {
       const target = +counter.getAttribute('data-target');
       const count = +counter.innerText;
-      const inc = target / 100; // Speed of counting
+      const inc = target / 100; 
       if (count < target) {
         counter.innerText = Math.ceil(count + inc);
         setTimeout(updateCount, 20);
@@ -174,10 +174,9 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('active');
-      // Trigger numbers when stats section is visible
       if(entry.target.id === 'stats-section' && !countersAnimated) {
         animateCounters();
-        countersAnimated = true; // Only run once
+        countersAnimated = true;
       }
     }
   });
