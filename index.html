@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
+  /* Smooth Page Transition Overlay */
+  #page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 999999; opacity: 1; pointer-events: none; transition: opacity 0.4s ease; }
+  #page-transition.hidden { opacity: 0; }
+
   /* FAQ Styles */
   .faq-section { max-width: 800px; margin: 0 auto 60px; padding: 0 20px; }
   .faq-section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
@@ -32,19 +36,31 @@
   .faq-item.active .faq-answer { max-height: 200px; padding: 0 20px 20px; }
   .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: #ec4899; }
   
-  /* Smooth Page Transition Overlay */
-  #page-transition {
+  /* Back to Top Button */
+  #backToTop {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #0f172a;
-    z-index: 99998; /* Just under the loader */
-    opacity: 1;
-    pointer-events: none; /* Lets clicks pass through when hidden */
-    transition: opacity 0.5s ease;
-  }
-  #page-transition.hidden {
+    right: 20px;
+    bottom: 80px; /* Sits perfectly above the theme toggle */
+    background: #00eaff;
+    color: #000;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
     opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 234, 255, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  #backToTop.show { opacity: 1; pointer-events: auto; }
+  #backToTop:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 6px 20px rgba(0, 234, 255, 0.6); }
 
   /* Light Mode Adjustments */
   body.light-mode .faq-item { background: #ffffff; border-color: #e2e8f0; }
@@ -54,8 +70,6 @@
 </style>
 </head>
 <body>
-
-<div id="loader"><div class="spinner"></div>Loading Beatix...</div>
 
 <div id="page-transition"></div>
 
@@ -135,7 +149,7 @@
   <div class="faq-container">
     <div class="faq-item">
       <button class="faq-question">Why is there no audio playing? <span class="faq-icon">+</span></button>
-      <div class="faq-answer"><p>Make sure Beatix is not muted, has permission to speak in your voice channel, and that the volume isn't set to 0!. Please feel free to contact to our support team if you are still facing any problems.</p></div>
+      <div class="faq-answer"><p>Make sure Beatix is not muted, has permission to speak in your voice channel, and that the volume isn't set to 0!</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Does Beatix support Spotify and Apple Music? <span class="faq-icon">+</span></button>
@@ -155,24 +169,36 @@
 
 <div class="toggle" id="themeToggle">Theme: Auto</div>
 
+<button id="backToTop" title="Go to top">↑</button>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-// SMOOTH PAGE TRANSITIONS LOGIC
-document.addEventListener("DOMContentLoaded", () => {
-  // Fade out the overlay when page loads
-  setTimeout(() => { document.getElementById("page-transition").classList.add("hidden"); }, 100);
+// BACK TO TOP LOGIC
+const backToTopBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTopBtn.classList.add("show");
+  } else {
+    backToTopBtn.classList.remove("show");
+  }
+});
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Intercept link clicks to fade out before leaving
+// PERFECTED PAGE TRANSITIONS
+window.addEventListener("pageshow", () => {
+  document.getElementById("page-transition").classList.add("hidden"); 
+});
+
 document.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', function(e) {
     const targetUrl = this.getAttribute('href');
-    // Only apply to our own .html pages, ignoring empty links or #
     if (targetUrl && targetUrl.endsWith('.html') && targetUrl !== window.location.pathname.split('/').pop()) {
-      e.preventDefault(); // Stop instant jump
-      document.getElementById("page-transition").classList.remove("hidden"); // Fade to black
-      setTimeout(() => { window.location.href = targetUrl; }, 500); // Wait for fade, then load next page
+      e.preventDefault(); 
+      document.getElementById("page-transition").classList.remove("hidden"); 
+      setTimeout(() => { window.location.href = targetUrl; }, 400); 
     }
   });
 });
@@ -199,22 +225,10 @@ mobileMenu.addEventListener('click', () => {
 // Initialize AOS Animations
 AOS.init({ once: true, offset: 100 });
 
-// Loader & Year
-window.addEventListener("load",()=>setTimeout(()=>document.getElementById("loader")?.remove(),700));
+// Year & Cursor
 document.getElementById("year").textContent=new Date().getFullYear();
-
-// Custom Cursor
 const cursor=document.getElementById("cursor");
 document.addEventListener("mousemove",e=>{cursor.style.left=e.clientX+"px";cursor.style.top=e.clientY+"px";});
-
-// 3D Card Hover Effect
-document.querySelectorAll(".card").forEach(card=>{
-  card.addEventListener("mousemove",e=>{
-    let r=card.getBoundingClientRect();
-    card.style.transform=`rotateX(${-(e.clientY-r.top-r.height/2)/18}deg) rotateY(${(e.clientX-r.left-r.width/2)/18}deg)`;
-  });
-  card.onmouseleave=()=>card.style.transform="rotateX(0) rotateY(0)";
-});
 
 // Theme Logic
 const themeToggleBtn = document.getElementById("themeToggle");
@@ -259,7 +273,6 @@ draw();
 // Number Counter Logic 
 const counters = document.querySelectorAll('.counter');
 let countersAnimated = false;
-
 const animateCounters = () => {
   counters.forEach(counter => {
     const updateCount = () => {
@@ -276,7 +289,6 @@ const animateCounters = () => {
     updateCount();
   });
 };
-
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting && !countersAnimated) {
@@ -285,7 +297,6 @@ const statObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.5 }); 
-
 statObserver.observe(document.getElementById('stats-section'));
 </script>
 </body>
