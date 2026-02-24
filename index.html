@@ -7,6 +7,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 <meta property="og:title" content="Beatix - The Ultimate Discord Music Bot">
 <meta property="og:description" content="Add Beatix to your server for high-quality music, playlist support, and fast playback.">
 <meta name="theme-color" content="#5865F2">
@@ -29,7 +31,7 @@
   </ul>
 </nav>
 
-<section class="hero">
+<section class="hero" data-aos="zoom-in" data-aos-duration="1000">
   <h1 class="gradient-title">Beatix Music Bot 🎧</h1>
   <p class="subtitle">The ultimate high-quality music experience for your Discord server.</p>
   
@@ -43,30 +45,30 @@
   </div>
 </section>
 
-<section class="cards reveal">
-  <div class="card">
+<section class="cards">
+  <div class="card" data-aos="fade-up" data-aos-delay="100">
     <div class="icon">⚡</div>
     <h3>Fast Playback</h3>
     <p>Zero lag and instant song loading.</p>
   </div>
-  <div class="card">
+  <div class="card" data-aos="fade-up" data-aos-delay="200">
     <div class="icon">📀</div>
     <h3>Playlist Support</h3>
     <p>Play your favorite playlists with ease.</p>
   </div>
-  <div class="card">
+  <div class="card" data-aos="fade-up" data-aos-delay="300">
     <div class="icon">🔊</div>
     <h3>HQ Audio</h3>
     <p>Crystal clear, uninterrupted quality.</p>
   </div>
-  <div class="card">
+  <div class="card" data-aos="fade-up" data-aos-delay="400">
     <div class="icon">📜</div>
     <h3>Easy Commands</h3>
     <p>Simple and intuitive slash commands.</p>
   </div>
 </section>
 
-<section class="stats reveal" id="stats-section">
+<section class="stats" id="stats-section" data-aos="fade-up" data-aos-duration="800">
   <h2>Live Bot Stats</h2>
   <div class="stats-grid">
     <div class="statbox">
@@ -75,7 +77,7 @@
     </div>
     <div class="statbox">
       <h4>Users</h4>
-      <div><span class="counter" data-target="11400">0</span><span>+</span></div>
+      <div><span class="counter" data-target="12000">0</span><span>+</span></div>
     </div>
     <div class="statbox">
       <h4>Ping</h4>
@@ -91,7 +93,15 @@
 
 <div class="toggle" id="themeToggle">Theme: Auto</div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <script>
+// Initialize AOS Animations
+AOS.init({
+  once: true, // Whether animation should happen only once - while scrolling down
+  offset: 100, // Offset (in px) from the original trigger point
+});
+
 // Loader & Year
 window.addEventListener("load",()=>setTimeout(()=>document.getElementById("loader")?.remove(),700));
 document.getElementById("year").textContent=new Date().getFullYear();
@@ -149,7 +159,7 @@ function draw(){
 } 
 draw();
 
-// Scroll Reveal & Number Counter Logic
+// Number Counter Logic (Triggered purely when stats are visible)
 const counters = document.querySelectorAll('.counter');
 let countersAnimated = false;
 
@@ -170,19 +180,16 @@ const animateCounters = () => {
   });
 };
 
-const observer = new IntersectionObserver((entries) => {
+const statObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-      if(entry.target.id === 'stats-section' && !countersAnimated) {
-        animateCounters();
-        countersAnimated = true;
-      }
+    if (entry.isIntersecting && !countersAnimated) {
+      animateCounters();
+      countersAnimated = true;
     }
   });
-}, { threshold: 0.1 }); 
+}, { threshold: 0.5 }); 
 
-document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+statObserver.observe(document.getElementById('stats-section'));
 </script>
 </body>
 </html>
